@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Category, { foreignKey: "CategoryId" });
-      this.hasMany(models.Transactionhistory);
+      this.hasMany(models.Transactionhistory,{foreignKey:"ProductId"});
     }
   }
-  product.init({
+  Product.init({
     title: {
       type: DataTypes.STRING,
       allowNull: false,
