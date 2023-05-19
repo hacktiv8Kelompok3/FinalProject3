@@ -3,9 +3,9 @@
 const productData = [
   {
     title: 'title 1',
-    price: '1',
-    stock: '1',
-    CategoryId: '1',
+    price: 1,
+    stock: 1,
+    CategoryId: 2,
     createdAt: new Date(),
     updatedAt: new Date()
   }

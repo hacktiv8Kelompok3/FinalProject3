@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { hashPassword } = require("../helpers/bcrypt")
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,10 +12,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Category, { foreignKey: "id" });
     }
   }
-  Users.init({
+  User.init({
     full_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -73,7 +73,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
         isEmpty: {
           args: true,
@@ -81,21 +80,20 @@ module.exports = (sequelize, DataTypes) => {
         },
         isIn:{
           args: [['admin', 'customer']],
-          msg: "Gender has to be 'admin' or 'customer'"
+          msg: "Role has to be 'admin' or 'customer'"
         }
       }
     },
     balance: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       validate: {
-        isNumeric: {
-          args: true,
-          msg:"Balance must be a number!"
-        },
         notEmpty: {
           args: true,
           msg:"Balance can't be empty!"
+        },
+        isNumeric: {
+          args: true,
+          msg:"Balance must be a number!"
         },
         min: {
           args: [0],
@@ -109,7 +107,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Users',
+    modelName: 'User',
+    hooks: {
+      beforeCreate: (user, opt) => {
+        const hashedPass = hashPassword(user.password)
+        user.password = hashedPass
+        user.role ="customer";
+        user.balance = 0;
+      }
+    }
   });
-  return Users;
+  return User;
 };

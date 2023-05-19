@@ -27,12 +27,10 @@ module.exports = {
         allowNull:false
       },
       role: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       balance: {
         type: Sequelize.INTEGER,
-        allowNull:false
 
       },
       createdAt: {
