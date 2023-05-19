@@ -2,9 +2,9 @@
 
 const categoryData = [
   {
-    id: '1',
+    id: 2,
     type: 'type1',
-    sold_product_amount: '1',
+    sold_product_amount: 1,
     createdAt: new Date(),
     updatedAt: new Date()
   }

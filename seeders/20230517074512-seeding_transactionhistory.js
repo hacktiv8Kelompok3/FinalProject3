@@ -1,10 +1,10 @@
 'use strict';
 const transactionData = [
   {
-    ProductId: '1',
-    UserId: '1',
-    quantity: '1',
-    total_price: '1',
+    ProductId: 5,
+    UserId: 2,
+    quantity: 1,
+    total_price: 1,
     createdAt: new Date(),
     updatedAt: new Date()
   }

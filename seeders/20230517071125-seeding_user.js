@@ -6,8 +6,8 @@ const userData = [
     email: 'user1@mail.com',
     password: '123456',
     gender: 'pria',
-    role: '1',
-    balance: '1',
+    role: 'admin',
+    balance: 1,
     createdAt: new Date(),
     updatedAt: new Date()
   }

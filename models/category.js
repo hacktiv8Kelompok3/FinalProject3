@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     sold_product_amount: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
