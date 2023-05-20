@@ -74,8 +74,15 @@ class UserController {
             const token = generateToken(response)
             res.status(200).json({token})
         } catch (error) {
-            res.status(error?.code || 500).json(error)
-        }
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                const validasiErorr = {};
+                error.errors.map((er) => {
+                    validasiErorr[er.path] = er.message;
+                });
+                return res.status(400).json({"error":validasiErorr});
+            }else{
+                res.status(error?.code || 500).json(error)
+            }        }
     }
     
     static async updateUser(req, res) { 
@@ -109,6 +116,59 @@ class UserController {
             }
         }
     }
+
+    static async deleteUser(req, res) { 
+        try {
+            const { id } = req.params
+            const result = await User.destroy({
+                where: { id }
+            })
+            console.log(id)
+            if (!result) {
+                throw {
+                  code: 404,
+                  message: "Data not found!"
+                }
+            }
+            res.status(201).json({message:`Delete id ${id} success!`})
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                const validasiErorr = {};
+                error.errors.map((er) => {
+                    validasiErorr[er.path] = er.message;
+                });
+                return res.status(400).json({"error":validasiErorr});
+            }else{
+                res.status(error?.code || 500).json(error)
+            }
+        }
+    }
+
+    static async topUp(req, res) { 
+        try {
+            const { balance } = req.body
+            const user = await User.findOne({where: {id: req.UserData.id}})
+            user.balance += parseInt(balance)
+            await user.save()
+            const idrBalance = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(user.balance)
+
+            res.status(201).json({
+                message: `Your balance has been successfully updated to ${idrBalance}`,
+            })
+
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                const validasiErorr = {};
+                error.errors.map((er) => {
+                    validasiErorr[er.path] = er.message;
+                });
+                return res.status(400).json({"error":validasiErorr});
+            }else{
+                res.status(error?.code || 500).json(error)
+            }
+        }
+    }
+
 
 }
 
