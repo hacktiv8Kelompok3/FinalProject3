@@ -37,6 +37,7 @@ const authentication = async (req, res, next) => {
       role: user.role
     }
 
+    
     next()
   } catch (error) {
       res.status(error?.code || 500).json(error)
