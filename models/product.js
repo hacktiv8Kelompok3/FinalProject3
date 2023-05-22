@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
   Product.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
         notEmpty: {
           args: true,
@@ -28,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+     
       validate: {
         isNumeric: {
           args: true,
@@ -50,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      
       validate: {
         notEmpty: {
           args: true,
