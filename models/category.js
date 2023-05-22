@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   Category.init({
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
         notEmpty: {
           args: true,
@@ -31,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     sold_product_amount: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       validate: {
         notEmpty: {
           args: true,
@@ -46,6 +44,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Category',
+    hooks: {
+      beforeCreate: (user, opt) => {
+        user.sold_product_amount = 0
+      }
+    }
   });
   return Category;
 };

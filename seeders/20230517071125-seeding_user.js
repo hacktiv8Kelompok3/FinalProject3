@@ -2,12 +2,12 @@
 
 const userData = [
   {
-    full_name: 'user1',
-    email: 'user1@mail.com',
+    full_name: 'admin1',
+    email: 'admin1@mail.com',
     password: '123456',
-    gender: 'pria',
+    gender: 'male',
     role: 'admin',
-    balance: 1,
+    balance: "000000",
     createdAt: new Date(),
     updatedAt: new Date()
   }
