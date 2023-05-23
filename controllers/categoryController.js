@@ -1,7 +1,24 @@
-const {Category} = require('../models')
+const { Category, Product } = require('../models')
 
 class categoryController {
+    
+    static async getAllCategory(req, res) { 
+        try {
+            const result = await Category.findAll({ include: Product })
+            res.status(201).json({category:result})
 
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                const validasiErorr = {};
+                error.errors.map((er) => {
+                    validasiErorr[er.path] = er.message;
+                });
+                return res.status(400).json({"error":validasiErorr});
+            } else {
+                res.status(error?.code || 500).json(error)
+            } 
+        }
+    }
     static async createCategory(req, res) {
         try {
             const { 
@@ -61,7 +78,7 @@ class categoryController {
                     validasiErorr[er.path] = er.message;
                 });
                 return res.status(400).json({"error":validasiErorr});
-            }else{
+            } else {
                 res.status(error?.code || 500).json(error)
             }
         }
