@@ -82,7 +82,8 @@ class UserController {
                 return res.status(400).json({"error":validasiErorr});
             }else{
                 res.status(error?.code || 500).json(error)
-            }        }
+            }
+        }
     }
     
     static async updateUser(req, res) { 

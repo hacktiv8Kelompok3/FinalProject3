@@ -6,7 +6,17 @@ const {
 } = require('../models')
   
 class Authorization { 
-    
+    static async admin(req, res, next) { 
+        const authUser = req.UserData
+        if (authUser.role !== 'admin') { 
+            return res.status(403).json({
+                name: 'Authorization Error',
+                message: `User With role ${authUser.role} does not have permission`,
+              })
+        } else {
+            return next()
+        }
+    }
     static async user(req, res, next) { 
         try {
             const UserId = req.params.id
