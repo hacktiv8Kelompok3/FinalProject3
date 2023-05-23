@@ -8,7 +8,6 @@ class categoryController {
                 type
             } = req.body
             const data = await Category.create({
-                id:req.UserData.id,
                 type
             })
             const response = {

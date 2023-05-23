@@ -88,14 +88,13 @@ class UserController {
     
     static async updateUser(req, res) { 
         try {
-            const { id } = req.params
             const { full_name, email } = req.body
             const result = await User.update({
                 full_name,
                 email,
             }, {
                 where: {
-                    id
+                    id:req.UserData.id
                 },
                 retruning: true,
                 individualHooks: true
@@ -120,18 +119,18 @@ class UserController {
 
     static async deleteUser(req, res) { 
         try {
-            const { id } = req.params
             const result = await User.destroy({
-                where: { id }
+                where: { 
+                    id:req.UserData.id
+                 }
             })
-            console.log(id)
             if (!result) {
                 throw {
                   code: 404,
                   message: "Data not found!"
                 }
             }
-            res.status(201).json({message:`Delete id ${id} success!`})
+            res.status(201).json({message:`Delete id ${req.UserData.id} success!`})
         } catch (error) {
             if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
                 const validasiErorr = {};

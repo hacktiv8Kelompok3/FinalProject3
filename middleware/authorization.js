@@ -19,27 +19,25 @@ class Authorization {
     }
     static async user(req, res, next) { 
         try {
-            const UserId = req.params.id
-            const authUser = req.UserData
-            console.log(UserId, "< user")
+            const authUser = req.UserData.id
             console.log(authUser, "< authUser")
             const user = await User.findOne({
                 where: {
-                  id: UserId,
+                  id: req.UserData.id,
                 },
             })
             if (!user) {
                 return res.status(404).json({
                   name: 'Data Not Found',
-                  message: `User With id ${UserId} not found`,
+                  message: `User With id ${user.id} not found`,
                 });
             }
-            if (user.id === authUser.id) {
+            if (user.id === authUser) {
                 return next();
             } else {
                 return res.status(403).json({
                     name: 'Authorization Error',
-                    message: `user with id ${authUser.id} do not have permission with id ${UserId}`,
+                    message: `user with id ${authUser} do not have permission with id ${user.id}`,
                 });
             }
         } catch (error) {

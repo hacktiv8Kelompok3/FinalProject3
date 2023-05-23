@@ -114,10 +114,6 @@ module.exports = (sequelize, DataTypes) => {
         user.password = hashedPass
         user.role ="customer";
         user.balance = 0;
-      },
-      beforeUpdate: (user, opt) => {
-        const hashedPass = hashPassword(user.dataValues.password)
-        user.dataValues.password = hashedPass
       }
     }
   });
