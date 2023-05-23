@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -12,60 +10,63 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Category, { foreignKey: "CategoryId" });
-      this.hasMany(models.Transactionhistory,{foreignKey:"ProductId"});
+      this.hasMany(models.Transactionhistory, { foreignKey: "ProductId" });
     }
   }
-  Product.init({
-    title: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg:"Title can't be empty!"
-        }
-      }
+  Product.init(
+    {
+      title: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Title can't be empty!",
+          },
+        },
+      },
+      price: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isNumeric: {
+            args: true,
+            msg: "Price must be a number!",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Price can't be empty!",
+          },
+          min: {
+            args: [0],
+            msg: "Price cannot be below 0",
+          },
+          max: {
+            args: [50000000],
+            msg: "Price Max is 50000000",
+          },
+        },
+      },
+      stock: {
+        type: DataTypes.INTEGER,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Stock can't be empty!",
+          },
+          isNumeric: {
+            args: true,
+            msg: "Stock must be a number!",
+          },
+          min: {
+            args: [5],
+            msg: "Stock cannot be below 5",
+          },
+        },
+      },
     },
-    price: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isNumeric: {
-          args: true,
-          msg:"Price must be a number!"
-        },
-        notEmpty: {
-          args: true,
-          msg:"Price can't be empty!"
-        },
-        min: {
-          args: [0],
-          msg: "Price cannot be below 0"
-        },
-        max: {
-          args: [50000000],
-          msg: "Price Max is 50000000"
-        }
-      }
-    },
-    stock: {
-      type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg:"Stock can't be empty!"
-        },
-        isNumeric: {
-          args: true,
-          msg:"Stock must be a number!"
-        },
-        min: {
-          args: [5],
-          msg: "Stock cannot be below 5"
-        }
-      }
+    {
+      sequelize,
+      modelName: "Product",
     }
-  }, {
-    sequelize,
-    modelName: 'Product',
-  });
+  );
   return Product;
 };
