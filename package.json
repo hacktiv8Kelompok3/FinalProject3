@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx sequelize db:migrate && npx sequelize db:seed:all",
+    "start": "npx sequelize db:migrate",
     "admin": "npx sequelize db:seed --seed 20230523024124-seeding_admin.js"
   },
   "repository": {
