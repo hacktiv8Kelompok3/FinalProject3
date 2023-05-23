@@ -65,6 +65,27 @@ class Authorization {
             res.status(error?.code || 500).json(error)
         }
     }
+
+    static async product(req, res, next) { 
+        try {
+            const { id } = req.params
+            const product = await Product.findOne({
+                where: {
+                    id:id
+                }
+            })
+            if (!product) {
+                return res.status(404).json({
+                  name: 'Data Not Found',
+                  message: `Product With id ${id} not found`,
+                });
+              }else {
+                return next();
+              }
+        } catch (error) {
+            res.status(error?.code || 500).json(error)
+        }
+    }
 }
 
 module.exports = Authorization

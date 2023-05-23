@@ -8,6 +8,8 @@ npm run start (for migrate all)
 npm run admin (for seeder admin)
 ```
 
+````
 Users Admin:
 * email: admin@gmail.com
 * password : 123456
+````
