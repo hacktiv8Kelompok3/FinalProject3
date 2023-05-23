@@ -11,20 +11,20 @@ module.exports = {
       },
       full_name: {
         type: Sequelize.STRING,
-        allowNull:false
+        
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
+        
         unique: true
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false
+        
       },
       gender: {
         type: Sequelize.STRING,
-        allowNull:false
+        
       },
       role: {
         type: Sequelize.STRING

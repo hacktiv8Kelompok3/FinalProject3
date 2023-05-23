@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.INTEGER,
-     
       validate: {
         isNumeric: {
           args: true,
@@ -49,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     stock: {
       type: DataTypes.INTEGER,
-      
       validate: {
         notEmpty: {
           args: true,

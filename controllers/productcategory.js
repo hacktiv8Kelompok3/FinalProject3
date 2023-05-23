@@ -22,18 +22,22 @@ class productController {
                 id: data.id,
                 title: data.title,
                 price: new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price),
-                CategoryId: id,
+                CategoryId: data.CategoryId,
                 updatedAt: new Date(),
                 createdAt: new Date()
             }
 
-            res.status(201).json(response)
+            res.status(201).json({products:response})
         } catch (error) {
-            res.status(401).json({
-                code: 401,
-                msg: "data gagal di buat"
-            })
-            console.log(error);
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                const validasiErorr = {};
+                error.errors.map((er) => {
+                    validasiErorr[er.path] = er.message;
+                });
+                return res.status(400).json({"error":validasiErorr});
+            }else{
+                res.status(error?.code || 500).json(error)
+            }
         }
     }
 
