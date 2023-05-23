@@ -10,18 +10,18 @@ module.exports = {
       type: {
         type: Sequelize.STRING,
         
-        // unique:true
+        unique:true
       },
       sold_product_amount: {
         type: Sequelize.INTEGER,
         
       },
       createdAt: {
-        
+        allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-       
+        allowNull: false,
         type: Sequelize.DATE
       }
     });
