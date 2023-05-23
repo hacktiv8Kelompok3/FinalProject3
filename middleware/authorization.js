@@ -45,6 +45,26 @@ class Authorization {
             return res.status(500).json(err.message)
         }
     }
+    static async categories(req, res, next) { 
+        try {
+            const { id } = req.params
+            const category = await Category.findOne({
+                where: {
+                    id:id
+                }
+            })
+            if (!category) {
+                return res.status(404).json({
+                  name: 'Data Not Found',
+                  message: `Category With id ${id} not found`,
+                });
+              }else {
+                return next();
+              }
+        } catch (error) {
+            res.status(error?.code || 500).json(error)
+        }
+    }
 }
 
 module.exports = Authorization
